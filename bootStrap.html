@@ -1,0 +1,242 @@
+<DOCTYPE html>
+  <html lang="en">
+  <head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- make sure you import the D3 script file -->
+    <script src="https://d3js.org/d3.v5.min.js"></script> 
+
+     <!-- custom fonts and styles for the bootstrap template -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" type="text/css" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  crossorigin="anonymous">
+
+     <!--   scripts and style for leaflet-->
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css"
+     integrity="sha512-wcw6ts8Anuw10Mzh9Ytw4pylW8+NAD4ch3lqm9lzAsTxg0GFeJgoAtxuCLREZSC5lUXdVyo/7yfsqFjQ4S+aKw=="
+     crossorigin=""/>
+
+
+
+    <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
+     integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
+     crossorigin=""></script>
+ -->
+
+   
+    <link href="css/sb-admin-2.css" type="text/css" rel="stylesheet">
+    <!-- for icons-->
+    <link rel= "stylesheet" href = "css/ionicons.min.css">
+    <link rel = "stylesheet" href = "css/leaflet.awesome-markers.css">
+
+
+    <title>Bootstrap Simplified Template</title>
+    <!-- adapted from: https://blackrockdigital.github.io/startbootstrap-sb-admin-2/ -->
+<!-- 
+    <script src="js/centennial.js"></script>
+    <script src="js/graph.js"></script>
+ -->
+
+  
+    <script src="js/menu.js"></script>
+    <script src="js/uploadData.js"></script>
+    <script src="js/assetPoint.js"> </script>
+    <script src="js/trackLocation.js"> </script>
+    <script src="js/leaflet.awesome-markers.js"></script>
+    <script src="js/graph.js"></script>
+    <!--https://stackoverflow.com/questions/59245796/cannot-read-property-icon-of-undefined-->
+
+<!-- set the style for the bar graph -->
+<style>
+.bar {
+  fill: #71EEB8;
+}
+
+.bar:hover {
+  fill: slateblue;
+}
+
+.axis-x path {
+  display: none;
+}
+
+.axis text {
+  font-weight: bold;
+}
+</style>
+  
+
+    <!--added here to so that before the menus are described, it can access the function, otherwise it says function undefined. -->
+  
+
+
+  </head>
+  <body id="page-top">
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" >
+          <div class="sidebar-brand-text mx-3">pratibha1708 <br> ucesatb </div>
+          <!-- <div class="sidebar-brand-text mx-3">ucesatb</div> -->
+        </a>
+
+       <!--  Divider -->
+        <hr class="sidebar-divider"> 
+        
+        <li class="nav-item d-none d-lg-block">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseOne" onclick="bestConditionAsset()" aria-expanded="true" aria-controls="collapseOne">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>List of Assets in Best <br>Condition</span>
+          </a> </li>
+
+        <li class="nav-item d-none d-lg-block">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseTwo" onclick="dailyReportingRatesGraph()" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Daily Reporting Rates <br>Graph – All Users</span>
+          </a></li>
+
+   
+
+        <!--   Divider -->
+        <hr class="sidebar-divider">
+        
+<!-- https://errorsea.com/how-to-open-a-new-web-page-on-button-click-using-javascript/-->
+<!-- source to add link  on button click -->
+
+        <li class="nav-item d-lg-none">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseThree"  onclick="window.open('https://cege0043-2022-35.cs.ucl.ac.uk/app/help.html');" aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Help</span>
+          </a></li>
+
+        <li class="nav-item d-lg-none">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseFour"  onclick="userRanking()" aria-expanded="true" aria-controls="collapseFour">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>User Ranking</span>
+          </a></li>
+
+        <li class="nav-item d-lg-none">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseFive"  onclick="addClosestAssets()" aria-expanded="true" aria-controls="collapseFive">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Add Layer – 5 closest assets</span>
+          </a></li>
+
+        <li class="nav-item d-lg-none">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseSix"  onclick="removeClosetAssets()" aria-expanded="true" aria-controls="collapseSix">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Remove Layer – 5 closest assets</span>
+          </a></li>
+
+        <li class="nav-item d-lg-none">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseSeven"  onclick= "addLast5Reports()" aria-expanded="true" aria-controls="collapseSeven">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Add Layer – last 5 reports, colour coded</span>
+          </a></li>
+
+        <li class="nav-item d-lg-none">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseEight"  onclick="removeLast5Reports()" aria-expanded="true" aria-controls="collapseEight">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Remove layer – last 5 reports</span>
+          </a></li>
+
+        <li class="nav-item d-lg-none">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseNine"  onclick="addNotRatedLast3day()" aria-expanded="true" aria-controls="collapseNine">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Add Layer – not rated in the last 3 days</span>
+          </a></li>
+
+        <li class="nav-item d-lg-none">
+          <a class="nav-link collapsed" href = "#" data-toggle="collapse" data-target="#collapseThree"  onclick="removeNotRatedLast3day()" aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Remove Layer – not rated in the last 3 days</span>
+          </a></li>
+       
+     </ul>
+
+       <!-- End of Sidebar -->
+
+       <div id="content-wrapper" class="d-flex flex-column">
+
+        <div id="mapContainer" class = "h-100 w-100" style='z-index:0;'></div>
+        <div id="graphWrapper" class="h-75 w-75 d-flex flex-column" style="background-color: white; text-align:center  ;display: inline-block;position:absolute; top:-9999;left:18%;"><b> Daily Reporting Rates of all users for past week </b>
+    
+         <button type="button" class="close" aria-label="Close" style= "background-color: red; text-align: center; color: white; width: 150px;  right: 0%;top: 0%; font-size:  20px; height: 30px; position:absolute; right:0%;" onclick="closeGraph();"> Close Graph</button>
+       </div>
+
+       <div id = 'latitude' hidden></div>
+
+       <div id = 'longitude' hidden></div>
+<!-- 
+       <div id='legendWrapper' class='h-20 w-20 d-flex flex-column' style="background-color: white; text-align:center  ;display: inline-block;position:absolute; top:-9999;left:18%;"> -->
+       
+        <!--w3schools.com/css/css3_buttons.asp-->
+        
+        <!--Adding scroll bar to table: https://stackoverflow.com/questions/18183296/how-can-i-add-a-vertical-scrollbar-to-my-div-automatically -->
+ -->
+      <div id="tableWrapper" class="h-75 w-75 d-flex flex-column" style="background-color: white; text-align:center ; overflow-y:scroll;display: inline-block;position:absolute; top:-9999;left:18%;"> 
+       </div>
+
+        <!-- <div id="mapid" style="width: 600px; height: 400px;"> -->
+        </div>
+        </div>
+
+      <!-- End of Main Content -->
+  
+    <!-- end of wrapper -->
+  </body>
+
+ 
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>  
+
+
+  
+  <!--  Bootstrap core JavaScript-->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <script src="js/sb-admin-2.js"></script>
+  
+  <script>
+
+    var width; // NB – keep this as a global variable 
+
+    //creata a custom popup as a global variable
+    var popup = L.popup();
+    var mapPoint; 
+   var mymap = L.map('mapContainer').setView([51.505, -0.09],9);
+    // store the geoJSON feature so that we can remove it if the screen is resized
+    
+
+function loadMap() {
+  loadLeafletMap();
+  // window.addEventListener('resize', setMapClickEvent); 
+
+  // setMapClickEvent();
+  
+  
+
+  
+   
+  // to load the asset point when we load the web page.
+      // map loading code goes here
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('Listener documentloaded');
+  getUserId();
+  loadMap();
+
+}, false);
+
+</script>
+ 
+  </html>
